@@ -1,13 +1,23 @@
-# Gác Sách — Tiệm sách độc lập
+# Gác Sách
 
-Landing page cho tiệm sách độc lập "Gác Sách" trong một con hẻm yên tĩnh:
-sách văn học, sách thiếu nhi và sách nghệ thuật được chọn lọc kỹ,
-kèm góc đọc sách, các buổi gặp gỡ tác giả và câu lạc bộ đọc sách cuối tuần.
+Trang giới thiệu (landing page) **tĩnh** — trang giới thiệu cho Gác Sách. Trang được dựng bằng HTML, CSS và JavaScript thuần, không cần bước biên dịch.
 
-- Sprint: yêu cầu web MSR-43 (Văn phòng M-Software)
-- Repo: Muse-Soft/m-software-gac-sach (public)
-- Demo: https://m-software-gac-sach.genalpha.dev (sau khi DevOps deploy)
-- Nội dung: hero kệ sách → giới thiệu + triết lý chọn sách → kệ sách chọn lọc
-  (giá mẫu 80.000đ–350.000đ) → không gian đọc & sự kiện → form liên hệ/đăng ký
-  sự kiện (CHỈ giao diện) → chân trang.
-- Địa chỉ, điện thoại, giờ mở cửa, người phụ trách: placeholder [CẦN BỔ SUNG].
+> Mọi tên, số điện thoại, địa chỉ và số liệu trên trang đều là **dữ liệu mẫu**. Giá hiển thị là **giá mẫu**. Biểu mẫu (nếu có) chỉ là giao diện minh họa: không gửi dữ liệu đi đâu và không có backend.
+
+**Demo trực tuyến:** https://m-software-gac-sach.genalpha.dev
+**Giấy phép:** [MIT](LICENSE) © M-Software
+
+## Cách xem
+
+Mở `index.html` bằng trình duyệt (nhấp đúp, không cần máy chủ), hoặc mở liên kết demo ở trên. Giữ nguyên các tệp cùng thư mục vì liên kết là tương đối.
+
+| Tệp | Nội dung |
+|---|---|
+| `README.md` | Tài liệu giới thiệu này |
+| `index.html` | Trang chính |
+
+## English
+
+A **static** landing page for Gác Sách, built with plain HTML, CSS and JavaScript. All names, contact details and figures shown are sample data, displayed prices are sample prices, and any form is interface-only — nothing is submitted and there is no backend. Open `index.html` in a browser. Licensed under MIT.
+
+Contact: contact@genalpha.dev

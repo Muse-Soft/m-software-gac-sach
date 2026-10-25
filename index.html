@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gác Sách — Tiệm sách độc lập</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600;700&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --nen-chinh: #FBF6EE;
+    --nen-phu: #F1E7D3;
+    --chu-chinh: #2B2620;
+    --chu-phu: #6B5D4F;
+    --nhan: #A63D2F;
+    --vien: #D8CBB2;
+  }
+  body {
+    background: var(--nen-chinh);
+    color: var(--chu-chinh);
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  h1, h2, h3 { font-family: "EB Garamond", serif; font-weight: 600; line-height: 1.2; }
+  h2 { font-size: 40px; margin-bottom: 8px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 48px; }
+  section { padding: 96px 0 0; }
+  section:last-of-type { padding-bottom: 96px; }
+
+  /* Điểm nhấn "Gáy sách làm vạch chia khối" */
+  .shelf-divider { margin-bottom: 24px; }
+  .shelf-divider .spines { display: flex; align-items: flex-end; gap: 4px; height: 20px; }
+  .shelf-divider .spines span { display: block; width: 8px; height: 14px; background: var(--nhan); }
+  .shelf-divider .spines span:nth-child(2) { width: 12px; height: 20px; background: var(--chu-chinh); }
+  .shelf-divider .spines span:nth-child(3) { width: 10px; height: 16px; background: var(--chu-phu); }
+  .shelf-divider .spines span:nth-child(4) { width: 14px; height: 12px; background: var(--vien); }
+  .shelf-divider .spines span:nth-child(5) { width: 9px; height: 18px; background: var(--nhan); }
+  .shelf-divider .rail { height: 3px; background: var(--chu-chinh); margin-top: 2px; }
+
+  /* Hero 100vh */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #FBF6EE;
+    overflow: hidden;
+  }
+  .hero img.bg {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .hero::after {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(43, 38, 32, 0.30);
+  }
+  .hero .inner { position: relative; z-index: 1; padding: 0 24px; }
+  .hero h1 { font-size: 64px; margin-bottom: 16px; }
+  .hero p { font-size: 19px; margin-bottom: 28px; }
+  .btn {
+    display: inline-block;
+    background: var(--nhan);
+    color: #FBF6EE;
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .btn:hover { opacity: 0.9; }
+
+  /* Giới thiệu */
+  .intro p { max-width: 720px; margin-bottom: 16px; }
+  .intro p:last-child { margin-bottom: 0; }
+
+  /* Kệ sách bento */
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-flow: dense;
+    gap: 20px;
+  }
+  .book {
+    border: 1px solid var(--vien);
+    border-radius: 6px;
+    padding: 20px;
+    background: var(--nen-chinh);
+  }
+  .book.alt { background: var(--nen-phu); }
+  .book.featured { grid-column: span 2; grid-row: span 2; }
+  .book img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+    margin-bottom: 14px;
+  }
+  .book h3 { font-size: 24px; margin-bottom: 6px; }
+  .book .topic { font-size: 14px; color: var(--chu-phu); margin-bottom: 8px; }
+  .book .price { color: var(--nhan); font-weight: 700; }
+  .book .price small { color: var(--chu-phu); font-weight: 400; font-size: 14px; }
+
+  /* Không gian đọc & sự kiện */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .cell {
+    border: 1px solid var(--vien);
+    border-radius: 6px;
+    padding: 24px;
+    background: var(--nen-chinh);
+  }
+  .cell.alt { background: var(--nen-phu); }
+  .cell img {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+    margin-bottom: 14px;
+  }
+  .cell h3 { font-size: 26px; margin-bottom: 8px; }
+  .event { margin-bottom: 16px; }
+  .event:last-child { margin-bottom: 0; }
+  .event h4 { font-family: "EB Garamond", serif; font-size: 21px; }
+  .event p { font-size: 15px; color: var(--chu-phu); }
+  .caption { font-size: 14px; color: var(--chu-phu); margin-top: 8px; }
+
+  /* Form */
+  form { max-width: 640px; }
+  .field { margin-bottom: 18px; }
+  .field label { display: block; font-weight: 500; margin-bottom: 6px; }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: 16px;
+    padding: 12px 14px;
+    border: 1px solid var(--vien);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--chu-chinh);
+  }
+  .form-note { font-size: 14px; color: var(--chu-phu); margin-top: 14px; }
+  #form-msg { margin-top: 14px; color: var(--nhan); font-weight: 500; display: none; }
+
+  /* Chân trang */
+  footer {
+    background: var(--nen-phu);
+    padding: 48px 0;
+    border-top: 1px solid var(--vien);
+  }
+  footer p { font-size: 15px; color: var(--chu-phu); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .wrap { padding: 0 24px; }
+    section { padding-top: 64px; }
+    h2 { font-size: 30px; }
+    .hero h1 { font-size: 48px; }
+    .bento { grid-template-columns: repeat(2, 1fr); }
+    .book.featured { grid-column: span 2; grid-row: span 1; }
+    .two-col { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .bento { grid-template-columns: 1fr; }
+    .book.featured { grid-column: span 1; }
+    .hero h1 { font-size: 40px; }
+    section { padding-top: 64px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 1. Hero -->
+<header class="hero">
+  <img class="bg" src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1920&h=1080&fit=crop&q=80" alt="Ảnh mẫu: kệ sách gỗ đầy ắp dưới ánh đèn vàng ấm">
+  <div class="inner">
+    <h1>Gác Sách</h1>
+    <p>Tiệm sách độc lập trong hẻm yên tĩnh</p>
+    <a class="btn" href="#ke-sach">Xem kệ sách</a>
+  </div>
+</header>
+
+<!-- 2. Giới thiệu + triết lý -->
+<section id="gioi-thieu">
+  <div class="wrap intro">
+    <div class="shelf-divider"><div class="spines"><span></span><span></span><span></span><span></span><span></span></div><div class="rail"></div></div>
+    <h2>Một góc yên tĩnh cho người mê sách</h2>
+    <p>Gác Sách nằm trong một con hẻm yên tĩnh, chuyên sách văn học, sách thiếu nhi và sách nghệ thuật được chọn lọc kỹ. Mỗi cuốn sách trên kệ đều được chúng tôi đọc qua trước khi giới thiệu.</p>
+    <p>Chúng tôi tin rằng một tiệm sách tốt không cần thật lớn — chỉ cần mỗi lần bạn ghé qua, đều tìm được một cuốn sách xứng đáng mang về.</p>
+  </div>
+</section>
+
+<!-- 3. Kệ sách chọn lọc -->
+<section id="ke-sach">
+  <div class="wrap">
+    <div class="shelf-divider"><div class="spines"><span></span><span></span><span></span><span></span><span></span></div><div class="rail"></div></div>
+    <h2>Kệ sách chọn lọc</h2>
+    <p class="caption" style="margin-bottom: 24px;">Tất cả đều là ảnh mẫu, giá ghi rõ “Giá mẫu”.</p>
+    <div class="bento">
+      <article class="book featured">
+        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&h=1200&fit=crop&q=80" alt="Ảnh mẫu: sách nổi bật của tuần">
+        <h3>Mùa thu trong hẻm nhỏ</h3>
+        <p class="topic">Sách nổi bật của tuần · Văn học</p>
+        <p class="price">250.000đ <small>— Giá mẫu</small></p>
+      </article>
+      <article class="book alt">
+        <img src="https://images.unsplash.com/photo-1524578271613-d550eacf6090?w=400&h=600&fit=crop&q=80" alt="Ảnh mẫu: bìa sách văn học">
+        <h3>Chuyện kể bên cửa sổ</h3>
+        <p class="topic">Văn học</p>
+        <p class="price">180.000đ <small>— Giá mẫu</small></p>
+      </article>
+      <article class="book">
+        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=600&fit=crop&q=80" alt="Ảnh mẫu: bìa sách văn học">
+        <h3>Đêm dài thành phố</h3>
+        <p class="topic">Văn học</p>
+        <p class="price">220.000đ <small>— Giá mẫu</small></p>
+      </article>
+      <article class="book alt">
+        <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=400&h=600&fit=crop&q=80" alt="Ảnh mẫu: bìa sách thiếu nhi">
+        <h3>Khu vườn giấy</h3>
+        <p class="topic">Thiếu nhi</p>
+        <p class="price">120.000đ <small>— Giá mẫu</small></p>
+      </article>
+      <article class="book">
+        <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&h=600&fit=crop&q=80" alt="Ảnh mẫu: bìa sách thiếu nhi">
+        <h3>Chú mèo đi lạc</h3>
+        <p class="topic">Thiếu nhi</p>
+        <p class="price">95.000đ <small>— Giá mẫu</small></p>
+      </article>
+      <article class="book alt">
+        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&h=600&fit=crop&q=80" alt="Ảnh mẫu: bìa sách nghệ thuật">
+        <h3>Màu của ký ức</h3>
+        <p class="topic">Nghệ thuật</p>
+        <p class="price">350.000đ <small>— Giá mẫu</small></p>
+      </article>
+      <article class="book">
+        <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&h=600&fit=crop&q=80" alt="Ảnh mẫu: bìa sách nghệ thuật">
+        <h3>Nét vẽ phố cũ</h3>
+        <p class="topic">Nghệ thuật</p>
+        <p class="price">280.000đ <small>— Giá mẫu</small></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Không gian đọc & sự kiện -->
+<section id="khong-gian">
+  <div class="wrap">
+    <div class="shelf-divider"><div class="spines"><span></span><span></span><span></span><span></span><span></span></div><div class="rail"></div></div>
+    <h2>Không gian đọc &amp; sự kiện</h2>
+    <div class="two-col" style="margin-top: 24px;">
+      <div class="cell">
+        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&h=800&fit=crop&q=80" alt="Ảnh mẫu: góc đọc với ghế gỗ và đèn bàn vàng">
+        <h3>Góc đọc yên tĩnh</h3>
+        <p>Ghế gỗ, đèn bàn vàng và một tách trà nóng — góc đọc của Gác Sách mở cả ngày cho bất cứ ai muốn ngồi lại với một cuốn sách hay.</p>
+        <p class="caption">Ảnh mẫu.</p>
+      </div>
+      <div class="cell alt">
+        <h3>Sự kiện sắp tới</h3>
+        <div class="event">
+          <h4>Câu lạc bộ đọc sách cuối tuần</h4>
+          <p>Cùng đọc và trò chuyện về một cuốn sách mỗi tuần · Thứ Bảy hàng tuần · Lịch mẫu</p>
+        </div>
+        <div class="event">
+          <h4>Ra mắt sách &amp; gặp gỡ tác giả</h4>
+          <p>Buổi trò chuyện thân mật với tác giả khách mời · Chủ nhật cuối tháng · Lịch mẫu</p>
+        </div>
+        <div class="event">
+          <h4>Góc đọc cho trẻ em</h4>
+          <p>Kể chuyện và đọc sách tranh cho các bạn nhỏ · Sáng Chủ nhật · Lịch mẫu</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Form liên hệ / đăng ký sự kiện -->
+<section id="lien-he">
+  <div class="wrap">
+    <div class="shelf-divider"><div class="spines"><span></span><span></span><span></span><span></span><span></span></div><div class="rail"></div></div>
+    <h2>Liên hệ &amp; đăng ký sự kiện</h2>
+    <form id="dang-ky" style="margin-top: 24px;">
+      <div class="field">
+        <label for="hoten">Họ tên</label>
+        <input type="text" id="hoten" name="hoten" required>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="field">
+        <label for="sukien">Chọn sự kiện</label>
+        <select id="sukien" name="sukien">
+          <option>Câu lạc bộ đọc sách cuối tuần</option>
+          <option>Ra mắt sách &amp; gặp gỡ tác giả</option>
+          <option>Góc đọc cho trẻ em</option>
+          <option>Liên hệ chung</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="loinhan">Lời nhắn</label>
+        <textarea id="loinhan" name="loinhan" rows="4"></textarea>
+      </div>
+      <button class="btn" type="submit">Gửi đăng ký</button>
+      <p class="form-note">Form demo — chưa gửi đi thật.</p>
+      <p id="form-msg">Cảm ơn bạn đã đăng ký! (Form demo — chưa gửi đi thật.)</p>
+    </form>
+  </div>
+</section>
+
+<!-- 6. Chân trang -->
+<footer>
+  <div class="wrap">
+    <p>Địa chỉ: [CẦN BỔ SUNG] · Điện thoại: [CẦN BỔ SUNG] · Giờ mở cửa: [CẦN BỔ SUNG] · Người phụ trách: [CẦN BỔ SUNG]</p>
+    <p style="margin-top: 8px;">Gác Sách — Tiệm sách độc lập. Ảnh trên trang đều là ảnh mẫu.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('dang-ky').addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.getElementById('form-msg').style.display = 'block';
+  });
+</script>
+</body>
+</html>
